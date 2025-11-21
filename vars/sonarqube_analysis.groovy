@@ -4,12 +4,12 @@
 //   }
 // }
 
-def call(String SonarQubeAPI, String Projectname, String ProjectKey) {
-    withSonarQubeEnv("${SonarQubeAPI}") {
-        echo "Running SonarQube scanner..."
-        sh "${env.SONAR_SCANNER_HOME}/bin/sonar-scanner -Dsonar.projectName=${Projectname} -Dsonar.projectKey=${ProjectKey} -X"
-    }
+withSonarQubeEnv('sonarqube1-token') {
+    // Use the scanner installed in Jenkins
+    def scannerHome = tool name: 'SonarScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+    sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectName=complet-ci -Dsonar.projectKey=ci-project"
 }
+
 
 
 
