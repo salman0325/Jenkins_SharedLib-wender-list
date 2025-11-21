@@ -4,10 +4,9 @@
 //   }
 // }
 // vars/sonarqube_analysis.groovy
+
 def call(String sonarServerName, String projectKey, String projectName) {
-    // Inject SonarQube environment
     withSonarQubeEnv(sonarServerName) {
-        // Use the SonarScanner installed in Jenkins (tool name = 'Sonar')
         def scannerHome = tool 'Sonar'
         sh """
             ${scannerHome}/bin/sonar-scanner \
@@ -19,6 +18,7 @@ def call(String sonarServerName, String projectKey, String projectName) {
         """
     }
 }
+
 
 
 
