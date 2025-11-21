@@ -9,7 +9,7 @@ def call(String projectName, String projectKey) {
     def scannerHome = tool name: 'Sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
 
     // Inject the SonarQube environment variables using the token
-    withSonarQubeEnv('sonarqube1-token') {
+    withSonarQubeEnv('Sonar') {
         sh """
             ${scannerHome}/bin/sonar-scanner \
             -Dsonar.projectName=${ci-project} \
