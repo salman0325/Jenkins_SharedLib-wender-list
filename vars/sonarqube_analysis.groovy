@@ -4,11 +4,14 @@
 //   }
 // }
 
-withSonarQubeEnv('sonarqube1-token') {
-    // Use the scanner installed in Jenkins
-    def scannerHome = tool name: 'SonarScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-    sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectName=complet-ci -Dsonar.projectKey=ci-project"
+def call(String sonarServerName, String projectName, String projectKey) {
+    // withSonarQubeEnv injects the scanner path
+    withSonarQubeEnv(sonarServerName) {
+        echo "SONAR_SCANNER_HOME = ${env.SONAR_SCANNER_HOME}"
+        sh "${env.SONAR_SCANNER_HOME}/bin/sonar-scanner -Dsonar.projectName=${projectName} -Dsonar.projectKey=${projectKey} -Dsonar.sources=. -X"
+    }
 }
+
 
 
 
